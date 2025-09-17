@@ -4,7 +4,7 @@ Panel of buttons to launch files into a running IDE
 
 [Example of the main window][screenshot]
 
-[![license](https://img.shields.io/pypi/l/filebuttons.svg)](https://github.com/tmarktaylor/filebuttons/blob/main/LICENSE)
+[![license](https://img.shields.io/pypi/l/filebuttons.svg)](https://github.com/tmarktaylor/filebuttons/blob/main/LICENSE.txt)
 [![pypi](https://img.shields.io/pypi/v/filebuttons.svg)](https://pypi.python.org/pypi/filebuttons)
 [![python](https://img.shields.io/pypi/pyversions/filebuttons.svg)](https://pypi.python.org/pypi/filebuttons)
 
