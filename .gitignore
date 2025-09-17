@@ -1,3 +1,29 @@
+# general things to ignore
+*~
+
+# owner's
+.mine/
+todos.txt
+t.md
+t.py
+t.txt
+t[0-9].md
+t[0-9].py
+t[0-9].txt
+tmp[0-9].md
+tmp[0-9].txt
+
+
+# PyCharm
+.idea/
+
+# IDE
+.vscode/
+
+# Mkdocs
+site
+_mkdocsin
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -182,9 +208,9 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore
 #  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  and can be added to the global gitignore or merged into this file. However, if you prefer,
 #  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 
