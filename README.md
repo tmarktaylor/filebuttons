@@ -135,7 +135,7 @@ button.  [Screen Position][screen-position].
 - Both the current working directory and the config file should
   be from trusted sources.
 
-- Files that contain either ";" or ":" will not generate buttons.
+- Files that contain either ";", "&&", "||", "\n" will not generate buttons.
 
 - Launch files from one repository into an IDE opened in another.
 
