@@ -139,9 +139,7 @@ def filename_ok(filename):
     badfilename = any([s in filename for s in disallow])
     if badfilename:
         disallowrepr = ",".join([repr(s) for s in disallow])
-        print(
-            f"No button for {repr(filename)}. It contains some of {disallowrepr}"
-        )
+        print(f"No button for {repr(filename)}. It contains some of {disallowrepr}")
         return False
     return True
 
@@ -225,7 +223,7 @@ def wrap(text: str) -> str:
         index, _ = divmod(width, 2)
         # for odd width make first part the longer part
         if width % 2 == 1:
-           index += 1
+            index += 1
         text = text[:index] + "\n" + text[index:]
     return text
 
