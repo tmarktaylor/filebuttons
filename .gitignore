@@ -1,3 +1,6 @@
+# general things to ignore
+*~
+
 # owner's
 .mine/
 todos.txt
@@ -9,6 +12,17 @@ t[0-9].py
 t[0-9].txt
 tmp[0-9].md
 tmp[0-9].txt
+
+
+# PyCharm
+.idea/
+
+# IDE
+.vscode/
+
+# Mkdocs
+site
+_mkdocsin
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
