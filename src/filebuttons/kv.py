@@ -1,4 +1,4 @@
-"""filebuttons."""
+"""Panel of buttons to launch files into a running IDE."""
 
 import argparse
 import configparser
@@ -39,7 +39,7 @@ from kivy.uix.widget import Widget
 myconfig = configparser.ConfigParser()
 
 
-# py .mine\kv.py -h
+# py src/filebuttons/kv.py -h
 # Kivy Usage: kv.py [KIVY OPTION...] [-- PROGRAM OPTIONS]::
 # Options placed after a '-- ' separator, will not be touched by kivy,
 # and instead passed to your program.
@@ -61,7 +61,7 @@ def main_argparser() -> argparse.ArgumentParser:
         "--title",
         help="Text to display in the main window title bar. Default is 'filebuttons'.",
         metavar="TEXT",
-        default=None,
+        default="filebuttons",
     )
 
     parser.add_argument(
@@ -130,7 +130,7 @@ class Cell:
     height: int = 0
 
 
-def filename_ok(filename):
+def filename_ok(filename: str) -> bool:
     """Return False if filename has disallowed substrings."""
     # The intent is to prevent passing malformed filenames to a shell
     # which is possible if the ["filebuttons"]["program"] key is set to a shell
@@ -170,7 +170,7 @@ def walk_one_folder(folder: Path) -> Iterator[Cell]:
             yield unsized_cell
 
 
-def emit_from_globs(start_folder, label, globs: List[str]) -> Iterator[Cell]:
+def emit_from_globs(start_folder: str, label: str, globs: List[str]) -> Iterator[Cell]:
     """Yield unsized Cell instance for label and for each path from globs."""
     yield Cell(title=label, target=None)  # label has no target
     paths = []
@@ -200,7 +200,7 @@ def walk_project(config: configparser.ConfigParser) -> Iterator[Cell]:
                 yield unsized_cell
 
 
-def show_files(cells) -> None:
+def show_files(cells: Iterator[Cell]) -> None:
     """Show the cell titles, indent if the cell has a target."""
     for cell in cells:
         if cell.target is None:
@@ -209,7 +209,7 @@ def show_files(cells) -> None:
             print(" ", cell.title)  # button text
 
 
-def show_heights(sized_cells) -> None:
+def show_heights(sized_cells: Iterator[Cell]) -> None:
     """Show wrapped label/button text and heights."""
     for cell in sized_cells:
         indent = "" if cell.target is None else "  "
@@ -228,7 +228,7 @@ def wrap(text: str) -> str:
     return text
 
 
-def compute_heights(unsized_cells) -> Iterator[Cell]:
+def compute_heights(unsized_cells: Iterator[Cell]) -> Iterator[Cell]:
     """Wrap label/button text and determine button height for each cell."""
     # Returns new Cell instances with updated title and height fields.
     for cell in unsized_cells:
@@ -244,7 +244,9 @@ def compute_heights(unsized_cells) -> Iterator[Cell]:
         yield Cell(text, cell.target, height)
 
 
-def make_columns(sized_cells, window_height) -> Iterator[List[Cell]]:
+def make_columns(
+    sized_cells: Iterator[Cell], window_height: int
+) -> Iterator[List[Cell]]:
     """Distribute iterable labelpaths items into columns."""
     cell_column: List[Cell] = []
     # todo- account for button spacing is [3] all faces
@@ -485,6 +487,7 @@ class MyFileButton(Button):
         self.bind(on_release=self.mycallback)  # note- bind is part of EventDispatcher
         self.size_hint_x = None
         self.width = BUTTON_WIDTH
+        self.size_hint_y = None
 
     def mycallback(self, instance):
         filename = str(self.mytarget)
@@ -587,9 +590,7 @@ class FilebuttonsApp(App):
         self.use_kivy_settings = False
 
         # Set the text appearing in the titlebar of the main window.
-        Clock.schedule_once(
-            partial(self.set_mainwindow_title, args.title or "filebuttons")
-        )
+        Clock.schedule_once(partial(self.set_mainwindow_title, args.title))
 
         assert self.config is not None, "Avoid pylance None nag."
         Builder.load_string(kv)
@@ -614,6 +615,7 @@ class FilebuttonsApp(App):
 
         quit_button = MyAppButton(text="Quit", on_release=self.stop)
 
+        number_of_file_buttons = 0
         for column in columns:
             column_layout = GridLayout(cols=1, spacing=[SPACING])
             # Add the app control buttons to the top of first column. We reserved
@@ -628,8 +630,9 @@ class FilebuttonsApp(App):
                     folder_button = Button(
                         text=cell.title,
                         size_hint_x=None,
-                        size_hint_max_y=cell.height,
                         width=BUTTON_WIDTH,
+                        size_hint_y=None,
+                        height=cell.height,
                         color=self.config["filebuttons"]["folder_text_color"],
                         background_color=self.config["filebuttons"][
                             "folder_background_color"
@@ -637,11 +640,12 @@ class FilebuttonsApp(App):
                     )
                     column_layout.add_widget(folder_button)
                 else:
+                    number_of_file_buttons += 1
                     column_layout.add_widget(
                         MyFileButton(
                             mytarget=cell.target,
                             text=cell.title,
-                            size_hint_max_y=cell.height,
+                            height=cell.height,
                             color=self.config["filebuttons"]["file_text_color"],
                             background_color=self.config["filebuttons"][
                                 "file_background_color"
@@ -651,14 +655,12 @@ class FilebuttonsApp(App):
                         )
                     )
             app_layout.add_widget(column_layout)
+        print(f"{number_of_file_buttons} file buttons created.")
         return app_layout
 
     def build_settings(self, settings):
         """Override App's."""
-        # todo- 3 key error exceptions at app exit time after closing settings.
-        # KeyError: 2049
-        # KeyError: 2416
-        # KeyError: 2495
+        # todo- 4 key error exceptions at app exit time after closing settings.
         settings.register_type("multilinestring", MyMultiLineSettingString)
         settings.add_json_panel(
             "Folders",

@@ -2,7 +2,7 @@
 
 Panel of buttons to launch files into a running IDE
 
-[Example of the main window][screenshot]
+[Example showing buttons for 202 files.][screenshot]
 
 [![license](https://img.shields.io/pypi/l/filebuttons.svg)](https://github.com/tmarktaylor/filebuttons/blob/main/LICENSE.txt)
 [![pypi](https://img.shields.io/pypi/v/filebuttons.svg)](https://pypi.python.org/pypi/filebuttons)
@@ -89,7 +89,7 @@ Files become buttons directed by the `[filebuttons.folders]` section in the conf
 
 There is one key for each folder. The folder must be a subfolder of the
 current working directory. A folder name can have `/` to indicate subdirectories.
-For example `docs/fix/code =`.
+For example `docs/fix/code =`
 
 The key's value is a multiline string. On each line
 is a glob defined by pathlib.Path.glob [see pathlib][pathlib]. The glob selects
@@ -135,12 +135,12 @@ button.  [Screen Position][screen-position].
 - Both the current working directory and the config file should
   be from trusted sources.
 
-- Files that contain either ";", "&&", "||", "\n" will not generate buttons.
+- Filenames that contain either ";", "&&", "||", "\n" will not generate buttons.
 
 - Launch files from one repository into an IDE opened in another.
 
 - To avoid configparser.ParsingError:, every key in `[filebuttons.folders]`
-  must be followed by an `=`.
+  must be followed by an `=`
 
 - If the recursive wildcard `**` is present in a glob, there will be
   no Folder Buttons rendered for the matching folders.
