@@ -58,13 +58,6 @@ def main_argparser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument(
-        "--title",
-        help="Text to display in the main window title bar. Default is 'filebuttons'.",
-        metavar="TEXT",
-        default="filebuttons",
-    )
-
-    parser.add_argument(
         "--config",
         help="Configuration file containing settings.",
         type=pathlib.Path,
@@ -568,6 +561,7 @@ class FilebuttonsApp(App):
         config.setdefaults(
             "filebuttons",
             {
+                "window_title": "filebuttons",
                 "program": "code",  # Visual Studio Code
                 "folder_background_color": "#0c0c0cff",
                 "folder_text_color": "#00a57fff",
@@ -588,11 +582,15 @@ class FilebuttonsApp(App):
         print("App.build-")
         self.settings_cls = SettingsWithSidebar
         self.use_kivy_settings = False
+        assert self.config is not None, "Avoid pylance None nag."
 
         # Set the text appearing in the titlebar of the main window.
-        Clock.schedule_once(partial(self.set_mainwindow_title, args.title))
+        Clock.schedule_once(
+            partial(
+                self.set_mainwindow_title, self.config["filebuttons"]["window_title"]
+            )
+        )
 
-        assert self.config is not None, "Avoid pylance None nag."
         Builder.load_string(kv)
         app_layout = BoxLayout(
             orientation="horizontal", width=layout_width, padding=3, spacing=3
@@ -741,6 +739,13 @@ class FilebuttonsApp(App):
         """Helper returns json panel data for the appearance settings."""
         setting_list = [
             {"type": "title", "title": "Restart App after changes."},
+            {
+                "type": "string",
+                "title": "Main window title",
+                "desc": "",
+                "section": "filebuttons",
+                "key": "window_title",
+            },
             {
                 "type": "color",
                 "title": "Folder button background color",

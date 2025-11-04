@@ -24,8 +24,6 @@ class TestCallersConfig(unittest.TestCase):
             "--",  # tell kivy following args are for the App
             "--config",
             "../config_files/aproject.ini",
-            "--title",
-            "aproject",
         ]
         # filebuttons looks for files relative to the current working directory.
         with contextlib.chdir("docs/aproject"):
@@ -91,6 +89,7 @@ src/filebuttons =
 tests =
 
 [filebuttons]
+window_title = filebuttons
 program = code
 folder_background_color = #0c0c0cff
 folder_text_color = #00a57eff

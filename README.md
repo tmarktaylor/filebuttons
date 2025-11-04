@@ -45,14 +45,13 @@ filebuttons -- -h
 The -- unlocks the filebuttons help. Without it you get the Kivy framework help.
 
 ```text
-usage: filebuttons.exe [KIVY OPTION...] [-- PROGRAM OPTIONS]:: [-h] [--title TEXT] [--config FILE]
+usage: filebuttons.exe [KIVY OPTION...] [-- PROGRAM OPTIONS]:: [-h] [--config FILE]
 
 Button panel. Each button runs a program with the file. Use to launch a file into a source code editor, IDE, or
 arbitrary program.
 
 options:
   -h, --help     show this help message and exit
-  --title TEXT   Text to display in the main window title bar. Default is 'filebuttons'.
   --config FILE  Configuration file containing settings.
 ```
 
