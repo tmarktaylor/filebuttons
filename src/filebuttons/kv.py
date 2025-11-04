@@ -375,7 +375,7 @@ class MyMultiLineSettingString(SettingItem):
         textinput.bind(on_text_validate=self._validate)
         self.textinput = textinput
 
-        # construct the content, widget are used as a spacer
+        # construct the content, widget is used as a spacer
         content.add_widget(Widget())
         content.add_widget(textinput)
         content.add_widget(Widget())
@@ -431,7 +431,7 @@ class MyAddNewFolder:
         )
         self.textinput.bind(on_text_validate=self._validate)
 
-        # construct the content, widget are used as a spacer
+        # construct the content, widget is used as a spacer
         content.add_widget(Widget())
         content.add_widget(self.textinput)
         content.add_widget(Widget())

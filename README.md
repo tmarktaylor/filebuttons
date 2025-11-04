@@ -158,9 +158,9 @@ Exceptions are reported in Kivy's console at App close time after going to setti
 [config]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/config_files/default_filebuttons.ini
 [kvfile]: https://github.com/tmarktaylor/filebuttons/blob/main/src/filebuttons/kv.py
 [program]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/screenshots/aproject-program.png
-[configparser]: https://docs.python.org/3.13/library/configparser.html
+[configparser]: https://docs.python.org/3/library/configparser.html
 [aproject-ini]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/config_files/aproject.ini
-[pathlib]: https://docs.python.org/3.13/library/pathlib.html
+[pathlib]: https://docs.python.org/3/library/pathlib.html
 [folders]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/screenshots/aproject-folders.png
 [appearance]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/screenshots/aproject-appearance.png
 [configfile]: https://github.com/tmarktaylor/filebuttons/blob/main/docs/screenshots/aproject-config-file.png
